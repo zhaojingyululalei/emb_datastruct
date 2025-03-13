@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "test.h": "c",
+        "debug.h": "c",
+        "rb_tree.h": "c"
+    }
+}
