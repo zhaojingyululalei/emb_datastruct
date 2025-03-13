@@ -2,6 +2,8 @@
     "files.associations": {
         "test.h": "c",
         "debug.h": "c",
-        "rb_tree.h": "c"
+        "rb_tree.h": "c",
+        "fixque.h": "c",
+        "ds_comm.h": "c"
     }
 }

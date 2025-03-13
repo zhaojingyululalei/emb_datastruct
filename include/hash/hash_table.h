@@ -6,7 +6,8 @@
 #include "ds_comm.h"
 
 #define HASH_TABLE_SIZE 256  // 哈希桶的数量
-
+#define hash_node_parent(node, parent_type, node_name)   \
+        ((parent_type *)(node ? offset_to_parent((node), parent_type, node_name) : 0))
 // 哈希节点
 typedef struct _hash_node_t {
     struct _hash_node_t *next;

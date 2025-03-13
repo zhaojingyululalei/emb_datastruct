@@ -16,20 +16,30 @@ int student_compare(const void *a, const void *b) {
 }
 
 void heap_test() {
+    const int HEAP_CAPACITY = 5;
+    void *heap_storage[HEAP_CAPACITY];  // 存储指针的数组
     heap_t heap;
-    heap_init(&heap, student_buffer, sizeof(student_t), STUDENT_MAX_CNT, student_compare,student_alloc,student_free);
 
-    printf("开始插入学生...\n");
-    for (int i = 0; i < 5; i++) {
-        student_t s = { STUDENT_STATE_USE, i + 1, "Student", 20 + i, 90 - i };
-        if (heap_insert(&heap, &s)) {
-            printf("插入: id=%d, score=%d\n", s.id, s.score);
-        }
+    // 初始化堆
+    heap_init(&heap, heap_storage, HEAP_CAPACITY, student_compare);
+
+    // 创建学生数据
+    student_t s1 = {STUDENT_STATE_USE, 1, "Alice", 20, 85};
+    student_t s2 = {STUDENT_STATE_USE, 2, "Bob", 22, 90};
+    student_t s3 = {STUDENT_STATE_USE, 3, "Charlie", 21, 78};
+
+    // 插入学生
+    heap_insert(&heap, &s1);
+    heap_insert(&heap, &s2);
+    heap_insert(&heap, &s3);
+
+    // 取出最小分数的学生
+    student_t *popped_student;
+    while (heap_pop(&heap, (void **)&popped_student)) {
+        printf("Popped Student ID: %d, Name: %s, Age: %d, Score: %d\n",
+               popped_student->id, popped_student->name, popped_student->age, popped_student->score);
+        
     }
 
-    printf("开始弹出学生...\n");
-    student_t s;
-    while (heap_pop(&heap, &s)) {
-        printf("弹出: id=%d, score=%d\n", s.id, s.score);
-    }
+    return 0;
 }

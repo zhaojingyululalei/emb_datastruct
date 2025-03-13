@@ -25,8 +25,8 @@ static hash_node_t* student_get_node(const void *data) {
 /**
  * 获取 `hash_node_t` 对应的 `student_t`
  */
-static void* student_get_parent(hash_node_t *node) {
-    return (void*)((uintptr_t)node - offsetof(student_t, node));
+static void* node_get_student(hash_node_t *node) {
+    return hash_node_parent(node,student_t,node);
 }
 
 void hash_table_test() {
@@ -34,7 +34,7 @@ void hash_table_test() {
     student_t students[10];
 
     hash_table_init(&table, (uintptr_t)student_hash, (uintptr_t)student_compare, 
-                    (uintptr_t)student_get_node, (uintptr_t)student_get_parent);
+                    (uintptr_t)student_get_node, (uintptr_t)node_get_student);
 
     // 插入学生
     for (int i = 0; i < 5; i++) {
