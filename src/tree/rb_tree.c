@@ -423,3 +423,38 @@ void rb_tree_clear(rb_tree_t *tree)
     tree->root = tree->nil;
     tree->count = 0;
 }
+
+/**
+ * 根据key查找红黑树中的节点
+ * @param tree 红黑树
+ * @param key 查找的键（任意类型）
+ * @param compare_key 自定义比较函数，格式 `int compare_key(const void *key, const void *data)`
+ * @return 找到的 `rb_node_t *`，若找不到返回 `NULL`
+ */
+rb_node_t *rb_tree_find_by(rb_tree_t *tree, const void *key, int (*compare_key)(const void *, const void *))
+{
+    if (!tree || !tree->root || tree->root == tree->nil) {
+        return NULL; // 空树，直接返回 NULL
+    }
+
+    rb_node_t *x = tree->root;
+
+    while (x != tree->nil) {
+        void *node_data = tree->get_parent(x); // 获取节点数据
+
+        // 调试输出，检查数据是否正确
+        //printf("Comparing key=%p with node_data=%p\n", key, node_data);
+
+        int cmp = compare_key(key, node_data); // 使用自定义比较函数
+
+        if (cmp == 0) {
+            return x; // 找到匹配的节点
+        } else if (cmp < 0) {
+            x = x->left; // 在左子树中查找
+        } else {
+            x = x->right; // 在右子树中查找
+        }
+    }
+
+    return NULL; // 未找到
+}

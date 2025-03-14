@@ -7,7 +7,10 @@
  */
 static int student_compare(const void *a, const void *b)
 {
-    return ((student_t *)a)->score - ((student_t *)b)->score;
+    int a_score = ((student_t *)a)->score;
+    int b_score = ((student_t *)b)->score;
+    
+    return  a-b ;
 }
 
 /**
@@ -20,13 +23,24 @@ rb_node_t *student_get_node(const void *data)
 
 student_t *node_get_student(rb_node_t *node)
 {
-    return rb_node_parent(node, student_t, node);
+    student_t*s = rb_node_parent(node, student_t, node);
+    return s;
 }
 
 static  void student_print(student_t* s){
     printf("id=%d, score=%d\n",
                s->id, s->score);
 }
+static int find_by_id(const void *key, const void *data)
+{
+    int key_id = (int)key; // **确保正确解引用 key**
+    student_t *s = (student_t *)data; // **确保 data 是正确的 student_t**
+    
+    //printf("find_by_id: key_id=%d, data_id=%d\n", key_id, s->id); // 调试输出
+
+    return key_id - s->id;
+}
+
 void rbtree_test(void)
 {
     rb_tree_t tree;
@@ -51,10 +65,21 @@ void rbtree_test(void)
     // rb_tree_remove(&tree,&students[2]);
     // rb_tree_remove(&tree,&students[3]);
     // rb_tree_remove(&tree,&students[4]);
-    rb_tree_clear(&tree);
-    rb_tree_remove(&tree,&students[4]);
-    rb_tree_inorder(&tree, tree.root, student_print);
+    // rb_tree_clear(&tree);
+    // rb_tree_remove(&tree,&students[4]);
+    //rb_tree_inorder(&tree, tree.root, student_print);
     //rb_tree_inorder(&tree, tree.root, student_print);
     //rb_tree_clear(&tree);
+
+
+    //int id_to_find = 2; // **需要传递变量地址**
+    rb_node_t *node = rb_tree_find_by(&tree, 1, find_by_id);  // **传递 `int` 地址**
+    student_t* s = rb_node_parent(node,student_t,node);
+    student_print(s);
+
+
+    // rb_node_t *node= rb_tree_find(&tree,&students[1]);
+    // student_t* s = rb_node_parent(node,student_t,node);
+    // student_print(s);
     
 }

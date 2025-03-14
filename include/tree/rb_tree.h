@@ -33,6 +33,7 @@ void rb_tree_init(rb_tree_t *tree, int capacity, uintptr_t compare, uintptr_t ge
 int rb_tree_insert(rb_tree_t *tree, void *data);
 int rb_tree_remove(rb_tree_t *tree, void *data);
 rb_node_t* rb_tree_find(rb_tree_t *tree, const void *data);
+rb_node_t *rb_tree_find_by(rb_tree_t *tree, const void *key, int (*compare_key)(const void *, const void *));
 void rb_tree_clear(rb_tree_t *tree);
 void rb_tree_inorder(rb_tree_t *tree,rb_node_t *node, void (*print)(const void*));
 
