@@ -41,5 +41,20 @@ void rbtree_test(void)
         rb_tree_insert(&tree, &students[i]);
     }
 
+    //rb_tree_inorder(&tree, tree.root, student_print);
+    // rb_node_t* ret_node = rb_tree_find(&tree,&students[1]);
+    // student_t* ret = rb_node_parent(ret_node,student_t,node);
+    // student_print(ret);
+
+    // rb_tree_remove(&tree,&students[0]);
+    // rb_tree_remove(&tree,&students[1]);
+    // rb_tree_remove(&tree,&students[2]);
+    // rb_tree_remove(&tree,&students[3]);
+    // rb_tree_remove(&tree,&students[4]);
+    rb_tree_clear(&tree);
+    rb_tree_remove(&tree,&students[4]);
     rb_tree_inorder(&tree, tree.root, student_print);
+    //rb_tree_inorder(&tree, tree.root, student_print);
+    //rb_tree_clear(&tree);
+    
 }
