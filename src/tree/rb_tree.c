@@ -2,7 +2,7 @@
 #include <string.h> // memcpy
 static  rb_node_t nil;
 // 初始化红黑树
-void rb_tree_init(rb_tree_t *tree, int capacity, uintptr_t compare, uintptr_t get_node, uintptr_t get_parent) {
+void rb_tree_init(rb_tree_t *tree, int capacity, int (*compare)(const void*, const void*), rb_node_t* (*get_node)(const void*),void* (*get_parent)(rb_node_t*)){
     if (!tree) return;
 
     // 创建哨兵节点

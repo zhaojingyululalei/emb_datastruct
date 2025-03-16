@@ -29,7 +29,7 @@ typedef struct _rb_tree_t {
 } rb_tree_t;
 
 // 红黑树操作
-void rb_tree_init(rb_tree_t *tree, int capacity, uintptr_t compare, uintptr_t get_node,uintptr_t get_parent);
+void rb_tree_init(rb_tree_t *tree, int capacity, int (*compare)(const void*, const void*), rb_node_t* (*get_node)(const void*),void* (*get_parent)(rb_node_t*));
 int rb_tree_insert(rb_tree_t *tree, void *data);
 int rb_tree_remove(rb_tree_t *tree, void *data);
 rb_node_t* rb_tree_find(rb_tree_t *tree, const void *data);
